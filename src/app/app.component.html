@@ -1,0 +1,89 @@
+
+<h3>Sample Layout</h3>
+<div class="ui-g">
+      <div class="ui-g-12 ui-md-12 ui-g-nopad">
+        <div class="ui-g-12">
+            Bar
+        </div>
+        <div class="ui-g-12 ui-g-nopad">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-4"> 
+                        <br>
+                        <br>
+                        <app-dropdown-demo></app-dropdown-demo>
+                        <br>
+                        <br>
+                        <div class="ui-float-label">
+                                <input id="float-input" type="text" pInputText> 
+                                <label for="float-input">PartNumber</label>
+                        </div>
+
+                 </div>
+                <div class="ui-g-12 ui-md-4">
+                        <app-doughnutchartdemo></app-doughnutchartdemo>
+                </div>
+                <div class="ui-g-12 ui-md-4">
+                        <app-doughnutchartdemo></app-doughnutchartdemo>
+                </div>
+            </div>
+            
+             
+             
+            <div class="ui-g">
+                    <p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="10">
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns">
+                                        {{col.header}}
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                <tr [pSelectableRow]="rowData">
+                                    <td *ngFor="let col of columns">
+                                        {{rowData[col.field]}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        
+                            <ng-template pTemplate="summary" let-rowData>
+                                <div style="text-align:left">
+                                    <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
+                                </div>
+                            </ng-template>
+                        </p-table>
+                        
+                        <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [closable]="true" [width]="300">
+                            <div class="ui-g ui-fluid" *ngIf="car">
+                                <div class="ui-g-4"><label for="vin">Vin</label></div>
+                                <div class="ui-g-8"><input pInputText id="vin" [(ngModel)]="car.vin" /></div>
+                                
+                                <div class="ui-g-4"><label for="year">Year</label></div>
+                                <div class="ui-g-8"><input pInputText id="year" [(ngModel)]="car.year" /></div>
+                                
+                                <div class="ui-g-4"><label for="brand">Brand</label></div>
+                                <div class="ui-g-8"><input pInputText id="brand" [(ngModel)]="car.brand" /></div>
+                                
+                                <div class="ui-g-4"><label for="color">Color</label></div>
+                                <div class="ui-g-8"><input pInputText id="color" [(ngModel)]="car.color" /></div>
+                            </div>
+                            <p-footer>
+                                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                    <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
+                                    <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
+                                </div>
+                            </p-footer>
+                        </p-dialog>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g-12">
+        Footer
+    </div>
+</div>
+
+<app-map></app-map>
+
+
+<!-- 
+   -->
