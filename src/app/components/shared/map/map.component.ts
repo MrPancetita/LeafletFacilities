@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet';
 import 'leaflet.markercluster';
+import { Facility, Address, AddressMap } from '../../../domain/faciLITE.model'
 import { DeprecatedDatePipe } from '@angular/common';
 
 @Component({
@@ -17,35 +18,30 @@ export class MapComponent implements OnInit {
   static readonly DEFAULT_ZOOMLEVEL = 3; 
 
   
-  markers: any = [
+  markers: Facility[] = [
     {
-      "name":"Goroka",
-      "city":"Goroka, Papua New Guinea",
-      "iata_faa":"GKA",
-      "icao":"AYGA",
-      "lat":-6.081689,
-      "lng":145.391881,
-      "alt":5282,
-      "tz":"Pacific/Port_Moresby"
-    },
-    {
-      "name":"Madang",
-      "city":"Madang, Papua New Guinea",
-      "iata_faa":"MAG",
-      "icao":"AYMD",
-      "lat":-5.207083,
-      "lng":145.7887,
-      "alt":20,
-      "tz":"Pacific/Port_Moresby"
-    },
-    {
-      "name":"San Diego Old Town Transit Center",
-      "city":"San Diego, United States",
-      "iata_faa":"OLT",
-      "lat":32.7552,
-      "lng":-117.1995,
-      "alt":0,
-      "tz":"America/Los_Angeles"
+      "facilityCleansiness": null,
+      "facilityDescription": "MyFirstFacility",
+      "facilityDimensions": null,
+      "facilityIdentifier": "FAC0001",
+      "facilityName": "THALES SPAIN",
+      "facilityType": "Warehouse",
+      "relating": null,
+      "address":  {
+        "addressCountry": "Spain",
+        "addressEMail": null,
+        "addressFaxNumber": null,
+        "addressIdentifier": "ADR00001",
+        "addressPostalBox": null,
+        "addressPostalCode": "28942",
+        "addressStreet": null,
+        "addressStreetNumber": null,
+        "addressTelephoneNumber": null,
+        "addressTelexNumber": null,
+        "addressURL": null,
+        "addressCoordXY": [22, 13]
+      },
+      "focalPoint": "String",
     }
   ]
  
@@ -82,14 +78,12 @@ export class MapComponent implements OnInit {
 
       for ( var i = 0; i < this.markers.length; ++i )
       {
-        var popup = this.markers[i].name +
-                    '<br/>' + this.markers[i].city +
-                    '<br/><b>IATA/FAA:</b> ' + this.markers[i].iata_faa +
-                    '<br/><b>ICAO:</b> ' + this.markers[i].icao +
-                    '<br/><b>Altitude:</b> ' + Math.round( this.markers[i].alt * 0.3048 ) + ' m' +
-                    '<br/><b>Timezone:</b> ' + this.markers[i].tz;
+        var popup = this.markers[i].facilityIdentifier +
+                    '<br/><b>FacilityIdentifier:</b> ' + this.markers[i].facilityIdentifier +
+                    '<br/><b>FacilityName:</b> ' + this.markers[i].facilityName +
+                    '<br/><b>FacilityDescription:</b> ' + this.markers[i].facilityDescription;
       
-        var m = L.marker( [this.markers[i].lat, this.markers[i].lng] )
+        var m = L.marker( [this.markers[i].address.addressCoordXY[0], this.markers[i].address.addressCoordXY[1]] )
                         .bindPopup( popup );
       
         markerClusters.addLayer( m );
@@ -116,16 +110,13 @@ export class MapComponent implements OnInit {
     
     for ( var i = 0; i < this.markers.length; ++i )
     {
-      var popup = this.markers[i].name +
-                  '<br/>' + this.markers[i].city +
-                  '<br/><b>IATA/FAA:</b> ' + this.markers[i].iata_faa +
-                  '<br/><b>ICAO:</b> ' + this.markers[i].icao +
-                  '<br/><b>Altitude:</b> ' + Math.round( this.markers[i].alt * 0.3048 ) + ' m' +
-                  '<br/><b>Timezone:</b> ' + this.markers[i].tz;
-    
-      var m = L.marker( [this.markers[i].lat, this.markers[i].lng] )
-                      .bindPopup( popup );
-    
+      var popup = this.markers[i].facilityIdentifier +
+      '<br/><b>FacilityIdentifier:</b> ' + this.markers[i].facilityIdentifier +
+      '<br/><b>FacilityName:</b> ' + this.markers[i].facilityName +
+      '<br/><b>FacilityDescription:</b> ' + this.markers[i].facilityDescription;
+
+          var m = L.marker( [this.markers[i].address.addressCoordXY[0], this.markers[i].address.addressCoordXY[1]] )
+          .bindPopup( popup );
       markerClusters.addLayer( m );
     }
     this.map.addLayer( markerClusters );  

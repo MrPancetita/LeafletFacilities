@@ -1,0 +1,189 @@
+@startuml facility
+
+/'*
+ * Facility is a building, installation or infrastructure that can be used for operation or maintenance purposes.
+ '/
+class Facility {
+    /'*
+     * facilityCleansiness is a classification that indicates the cleansiness that is required for the facility.
+     '/
+    facilityCleansiness: ClassificationType;
+    /'*
+     * facilityDescription is a textual explanation of what the facility is.
+     '/
+    facilityDescription: DescriptorType;
+    /'*
+     * facilityDimensions are the dimensions (length, width, height) of the Facility.
+     '/
+    facilityDimensions: ThreeDDimension;
+    /'*
+     * facilityIdentifier is a string of characters that identifies a Facility and differentiates it from other Facilities.
+     '/
+    facilityIdentifier: IdentifierType;
+    /'*
+     * facilityName is a short text by which the Facility is known.
+     '/
+    facilityName: DescriptorType;
+    /'*
+     * facilityType is a classification that allows to differentiate between different classes of facilities.
+     '/
+    facilityType: ClassificationType;
+    /'*
+     *  facilityRelationship is a <<relationship>> that defines how two Facilities are related with each other.
+     '/
+    relating: FacilityRelationship;
+    /'*
+     * address is a specific geographical location that has been uniquely identified and where somebody lives
+     * or an organization or facility is located.
+     '/
+    address: Address;
+    /'*
+     *
+     '/
+    focalPoint: FocalPointRc;
+}
+/'*
+ * Address is a specific geographical location that has been uniquely identified and where
+ * somebody lives or an organization or facility is located.
+ '/
+class Address {
+    /'*
+     * addressIdentifier is a unique string of characters that is used to uniquely identify a country
+     '/
+    addressCountry: IdentifierType;
+    /'*
+     * addressEMail is a text indicating an e-mail associated to an address.
+     '/
+    addressEMail: TextPropertyType;
+    /'*
+     * addressFaxNumber is a text indicating the fax number associated to an address.
+     '/
+    addressFaxNumber: TextPropertyType;
+    /'*
+     * addressIdentifier is a unique string of characters that is used to uniquely identify an
+     *  Address and to differentiate it from other Addresses.
+     '/
+    addressIdentifier: IdentifierType;
+    /'*
+     * addressPostalBox is a text that indicates the identification of a Postal Box that is used as an address.
+     '/
+    addressPostalBox: TextPropertyType;
+    /'*
+     * addressPostalCode is a text that indicates the Postal Code of an address.
+     '/
+    addressPostalCode: TextPropertyType;
+    /'*
+     * addressStreet is a text indicating the name of the street in an address.
+     '/
+    addressStreet: TextPropertyType;
+    /'*
+     * addressStreetNumber is a text indicating the street number of an address.
+     '/
+    addressStreetNumber: TextPropertyType;
+    /'*
+     * addressTelephoneNumber is a text indicating the telephone number associated to an address.
+     '/
+    addressTelephoneNumber: TextPropertyType;
+    /'*
+     * addressTelexNumber is a text indicating the telex number associated to an address.
+     '/
+    addressTelexNumber: TextPropertyType;
+    /'*
+     * addressURL is a text indicating an URL associated to an address.
+     '/
+    addressURL: TextPropertyType;
+}
+/'*
+ * FacilityRelationship is a <<relationship>> that defines how two Facilities are related with each other.
+ '/
+class FacilityRelationship {
+    /'*
+     * facilityRelationshipType is a classification that describes the relationship between two facilities.
+     '/
+    facilityRelationshipType: ClassificationType;
+    /'*
+     * Facility is a building, installation or infrastructure that can be used for operation or maintenance purposes.
+     '/
+    related: Facility;
+}
+/'*
+ * MaintenanceFacility is a Facility dedicated to carry out maintenance actions.
+ '/
+class MaintenanceFacility extends Facility {
+    /'*
+     * maintenanceFacilityShifts is the number of staff shifts in a MaintenanceFacility.
+     '/
+    maintenanceFacilityShifts: SingleValuePropertyType;
+}
+/'*
+ * OperatingBase is a Facility that is used for the purpose of operating a Product or ProductVariant.
+ '/
+class OperatingBase extends Facility {
+
+}
+/'*
+ * Warehouse is a Facility used to store parts.
+ '/
+class Warehouse extends Facility {
+
+}
+/'*
+ * FacilityOwner is a <<relationship>> that defines the total or partial ownership of a facility
+ * by a specific party during a specific period of time.
+ '/
+class FacilityOwner {
+    /'*
+     * facilityOwnedDuring is the period during which a facility is or has been owned by a specific Party.
+     '/
+    facilityOwnedDuring: DateRange;
+    /'*
+     * related Facility
+     '/
+    related: Facility;
+    /'*
+     * Party is an <<interface>> representing an entity that is capable of signing a
+     * contract or carrying out actions by itself without being instructed to do so.
+     '/
+    party: Party;
+}
+/'*
+ * FacilityOperator is a <<relationship>> that defines the operator of a facility during a specific period of time.
+ '/
+class FacilityOperator {
+    /'*
+     * facilityOperatorDuring is the period during which a certain Party operates a Facility.
+     '/
+    facilityOperatorDuring: DateRange;
+    /'*
+     * related Facility
+     '/
+    related: Facility;
+    /'*
+     * Party is an <<interface>> representing an entity that is capable of signing a contract or carrying out
+     * actions by itself without being instructed to do so.
+     '/
+    party: Party;
+    /'*
+     *
+     '/
+    repairTimeKpis: RepairTimeKpiRc[];
+}
+/'*
+ * FocalPointRc defines relevant info of the focal point person
+ '/
+class FocalPointRc {
+    /'*
+     * The focal point email
+     '/
+    email: string;
+    /'*
+     * The focal point name
+     '/
+    name: string;
+    /'*
+     * The focal point phone number
+     '/
+    phoneNumber: string;
+}
+
+@enduml
